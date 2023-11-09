@@ -146,8 +146,7 @@ def main() -> None:
             pdf_name = uploaded_file.name.split(".")[0]
             if f"{pdf_name}_uploaded" not in st.session_state:
                 reader = PDFReader()
-                pdf_documents: List[Document] = reader.read(uploaded_file)
-                if pdf_documents:
+                if pdf_documents := reader.read(uploaded_file):
                     pdf_conversation.knowledge_base.load_documents(pdf_documents)
                 else:
                     st.sidebar.error("Could not read PDF")
@@ -177,8 +176,7 @@ def main() -> None:
                 )
             st.rerun()
 
-    pdf_conversation_name = pdf_conversation.name
-    if pdf_conversation_name:
+    if pdf_conversation_name := pdf_conversation.name:
         st.sidebar.write(f":thread: {pdf_conversation_name}")
 
     # Show reload button

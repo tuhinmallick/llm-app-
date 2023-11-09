@@ -14,6 +14,4 @@ def get_user_name() -> Optional[str]:
             st.session_state["user_name"] = username
             username_input_container.empty()
 
-    # Get user_name from session state
-    user_name = st.session_state.get("user_name")
-    return user_name
+    return st.session_state.get("user_name")

@@ -23,21 +23,13 @@ class DbSettings(BaseSettings):
     migrate_db: bool = False
 
     def get_db_url(self) -> str:
-        db_url = "{}://{}{}@{}:{}/{}".format(
-            self.db_driver,
-            self.db_user,
-            f":{self.db_pass}" if self.db_pass else "",
-            self.db_host,
-            self.db_port,
-            self.db_database,
-        )
+        db_url = f'{self.db_driver}://{self.db_user}{f":{self.db_pass}" if self.db_pass else ""}@{self.db_host}:{self.db_port}/{self.db_database}'
         # Use local database if RUNTIME_ENV is not set
         if "None" in db_url and getenv("RUNTIME_ENV") is None:
             from workspace.dev_resources import dev_db
 
             logger.debug("Using local connection")
-            local_db_url = dev_db.get_db_connection_local()
-            if local_db_url:
+            if local_db_url := dev_db.get_db_connection_local():
                 db_url = local_db_url
 
         # Validate database connection

@@ -12,8 +12,7 @@ def get_openai_key() -> Optional[str]:
     # If not found, get it from user input
     if openai_key is None or openai_key == "" or openai_key == "sk-***":
         api_key = st.sidebar.text_input("OpenAI API key", placeholder="sk-***", key="api_key")
-        if api_key != "sk-***" or api_key != "" or api_key is not None:
-            openai_key = api_key
+        openai_key = api_key
 
     # Store it in session state and environment variable
     if openai_key is not None and openai_key != "":
