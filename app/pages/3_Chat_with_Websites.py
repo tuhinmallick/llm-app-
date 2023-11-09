@@ -128,9 +128,7 @@ def main() -> None:
     if st.sidebar.button("Auto Rename"):
         website_conversation.auto_rename()
 
-    # Add websites to knowledge base
-    website_knowledge_base: WebsiteKnowledgeBase = website_conversation.knowledge_base  # type: ignore
-    if website_knowledge_base:
+    if website_knowledge_base := website_conversation.knowledge_base:
         website_url = st.sidebar.text_input("Add Website to Knowledge Base")
         if website_url != "":
             if website_url not in website_knowledge_base.urls:
@@ -165,8 +163,7 @@ def main() -> None:
                 )
             st.rerun()
 
-    website_conversation_name = website_conversation.name
-    if website_conversation_name:
+    if website_conversation_name := website_conversation.name:
         st.sidebar.write(f":thread: {website_conversation_name}")
 
     # Show reload button

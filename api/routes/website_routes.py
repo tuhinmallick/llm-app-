@@ -80,8 +80,7 @@ def create_conversation(body: CreateConversationRequest):
 
 
 def chat_response_streamer(conversation: Conversation, message: str) -> Generator:
-    for chunk in conversation.chat(message):
-        yield chunk
+    yield from conversation.chat(message)
 
 
 class ChatRequest(BaseModel):
